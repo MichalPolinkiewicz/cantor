@@ -1,30 +1,36 @@
 package com.exchange.domain;
 
-import com.exchange.domain.currency.Currency;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.util.Map;
 
 /**
  * Created by Lenovo on 01.02.2018.
  */
+@Entity
 @Component
 public class Cantor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String dateOfActualization;
+    @ElementCollection
+    @CollectionTable(name = "cantorQuantitys", joinColumns = {@JoinColumn(name = "cantorId")})
+    @MapKeyJoinColumn(name = "currencyId")
+    @Column(name = "quantityLeft")
     private Map<Currency, Double> portfolio;
 
     public Cantor() {
-        this.dateOfActualization = dateOfActualization;
-        this.portfolio = portfolio;
     }
 
-    public Map<Currency, Double> getPortfolio() {
-        return portfolio;
+    public Long getId() {
+        return id;
     }
 
-    public void setPortfolio(Map<Currency, Double> portfolio) {
-        this.portfolio = portfolio;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDateOfActualization() {
@@ -35,10 +41,19 @@ public class Cantor {
         this.dateOfActualization = dateOfActualization;
     }
 
+    public Map<Currency, Double> getPortfolio() {
+        return portfolio;
+    }
+
+    public void setPortfolio(Map<Currency, Double> portfolio) {
+        this.portfolio = portfolio;
+    }
+
     @Override
     public String toString() {
         return "Cantor{" +
-                "dateOfActualization='" + dateOfActualization + '\'' +
+                "id=" + id +
+                ", dateOfActualization='" + dateOfActualization + '\'' +
                 ", portfolio=" + portfolio +
                 '}';
     }

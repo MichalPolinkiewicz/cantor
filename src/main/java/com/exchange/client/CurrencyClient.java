@@ -15,7 +15,6 @@ public class CurrencyClient {
 
     public ResponseObject getDataFromServer(){
         restTemplate = new RestTemplate();
-        ResponseObject responseObject = restTemplate.getForObject("http://webtask.future-processing.com:8068/currencies", ResponseObject.class);
-        return responseObject;
+        return restTemplate.getForObject("http://webtask.future-processing.com:8068/currencies", ResponseObject.class);
     }
 }

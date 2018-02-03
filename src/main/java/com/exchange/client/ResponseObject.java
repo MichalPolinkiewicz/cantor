@@ -8,7 +8,7 @@ import java.util.List;
 public class ResponseObject {
 
     private String publicationDate;
-    List<Item> items;
+    private List<Item> items;
 
     public String getPublicationDate() {
         return publicationDate;

@@ -1,22 +1,36 @@
-package com.exchange.domain.currency;
+package com.exchange.domain;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Lenovo on 01.02.2018.
  */
+@Entity
 public class Currency {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String code;
     private int unit;
     private double purchasePrice;
     private double sellPrice;
     private double averagePrice;
+    @Transient
     private List<Double> averagePrices = new ArrayList<>();
 
     public Currency() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -88,11 +102,18 @@ public class Currency {
                 '}';
     }
 
-    public double calculateAvgPrice(){
-        double sum = 0.0;
-        for(int i = 1; i < averagePrices.size(); i++){
-            sum = sum + averagePrices.get(i);
-        } return sum/averagePrices.size();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Currency)) return false;
+
+        Currency currency = (Currency) o;
+
+        return getCode() != null ? getCode().equals(currency.getCode()) : currency.getCode() == null;
     }
 
+    @Override
+    public int hashCode() {
+        return getCode() != null ? getCode().hashCode() : 0;
+    }
 }

@@ -6,7 +6,6 @@ import com.exchange.facade.CantorFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,9 +18,6 @@ public class CantorController {
    @Autowired
    private CantorFacade cantorFacade;
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "transaction", params = {"uderId", "currencyId"})
-    public void doTransaction(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long crId){}
-
     @RequestMapping(method = RequestMethod.GET, value = "test")
     public ResponseObject testItem(){
         return cantorFacade.getDataFromServer();
@@ -32,9 +28,9 @@ public class CantorController {
         cantorFacade.openCantor();
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "init")
+    @RequestMapping(method = RequestMethod.PATCH, value = "actualize")
     public void initDatas(){
-        cantorFacade.act();
+        cantorFacade.actualizeCantor();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "cantor")

@@ -1,19 +1,28 @@
 package com.exchange.domain;
 
-import com.exchange.domain.currency.Currency;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.persistence.*;
 import java.util.Map;
 
 /**
  * Created by Lenovo on 01.02.2018.
  */
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String surname;
     private String password;
     private double saldo;
+    @JsonIgnore
+    @ElementCollection
+    @CollectionTable(name = "userQuantitys", joinColumns = {@JoinColumn(name = "userId")})
+    @MapKeyJoinColumn(name = "currencyId")
+    @Column(name = "quantity")
     private Map<Currency, Double> wallet;
 
     public User() {

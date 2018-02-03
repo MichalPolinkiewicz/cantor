@@ -4,7 +4,8 @@ import com.exchange.client.CurrencyClient;
 import com.exchange.client.Item;
 import com.exchange.client.ResponseObject;
 import com.exchange.domain.Cantor;
-import com.exchange.domain.currency.*;
+import com.exchange.domain.Currency;
+import com.exchange.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,37 +20,28 @@ import java.util.Map;
 public class CantorFacade {
 
     @Autowired
-    CurrencyClient currencyClient;
+    private CurrencyClient currencyClient;
     @Autowired
     private Cantor cantor;
+    @Autowired
+    private DbService dbService;
 
     public void openCantor(){
-        Currency czechKoruna = new CzechKoruna();
-        czechKoruna.setCode("CZK");
-        Currency euro = new Euro();
-        euro.setCode("EUR");
-        Currency poundSterling = new PoundSterling();
-        poundSterling.setCode("GBP");
-        Currency russianRuble = new RussianRuble();
-        russianRuble.setCode("RUB");
-        Currency swissFrank = new SwissFrank();
-        swissFrank.setCode("CHF");
-        Currency usDollar = new UsDollar();
-        usDollar.setCode("USD");
-
+        List<Item> items = currencyClient.getDataFromServer().getItems();
         Map<Currency, Double> portfolio = new HashMap<>();
-        portfolio.put(czechKoruna, 10000.00);
-        portfolio.put(euro, 10000.00);
-        portfolio.put(poundSterling, 10000.00);
-        portfolio.put(russianRuble, 10000.00);
-        portfolio.put(swissFrank, 10000.00);
-        portfolio.put(usDollar, 10000.00);
+
+        for(Item item : items){
+            Currency currency = new Currency();
+            currency.setCode(item.getCode());
+            portfolio.put(currency, 10000.0);
+            dbService.saveCurrency(currency);
+        }
 
         cantor.setPortfolio(portfolio);
-
+        dbService.saveCantor(cantor);
     }
 
-    public void act (){
+    public void actualizeCantor (){
         String data = currencyClient.getDataFromServer().getPublicationDate();
 
         if (!data.equals(cantor.getDateOfActualization())) {
@@ -72,44 +64,14 @@ public class CantorFacade {
                         currency.setSellPrice(item.getSellPrice());
                         currency.setAveragePrice(item.getAveragePrice());
                         List<Double> prices = currency.getAveragePrices();
-                        currency.setAveragePrices(prices);
                         prices.add(item.getAveragePrice());
+                        currency.setAveragePrices(prices);
+                        dbService.saveCurrency(currency);
                     }
                 }
             }
+            dbService.saveCantor(cantor);
     }}
-
-
-//    public void actualizeCantor (){
-//        String data = currencyClient.getDataFromServer().getPublicationDate();
-//
-//        if (!data.equals(cantor.getDateOfActualization())) {
-//            cantor.setDateOfActualization(data);
-//
-//            List<Item> itemList = currencyClient.getDataFromServer().getItems();
-//            List<Currency> currencyList = cantor.getPortfolio();
-//
-//            for (int i = 0; i < currencyList.size(); i++) {
-//                Currency currency = currencyList.get(i);
-//                Item item = new Item();
-//
-//                for (int n = 0; n < itemList.size(); n++) {
-//                    item = itemList.get(n);
-//
-//                    if (currency.getCode().equals(item.getCode())) {
-//                        currency.setName(item.getName());
-//                        currency.setUnit(item.getUnit());
-//                        currency.setPurchasePrice(item.getPurchasePrice());
-//                        currency.setSellPrice(item.getSellPrice());
-//                        currency.setAveragePrice(item.getAveragePrice());
-//                        List<Double> prices = currency.getAveragePrices();
-//                        currency.setAveragePrices(prices);
-//                        prices.add(item.getAveragePrice());
-//                    }
-//                }
-//            }
-//        }
-//    }
 
     public ResponseObject getDataFromServer(){
         return currencyClient.getDataFromServer();
@@ -118,4 +80,5 @@ public class CantorFacade {
     public Cantor getCantor(){
         return cantor;
     }
+
 }

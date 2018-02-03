@@ -1,14 +1,47 @@
 package com.exchange.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.exchange.domain.Currency;
+import com.exchange.domain.User;
+import com.exchange.facade.UserFacade;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+
 
 /**
  * Created by Lenovo on 01.02.2018.
  */
 @RestController
-@RequestMapping("/v1/user/")
+@RequestMapping("/v1/user")
 public class UserController {
+
+    @Autowired
+    private UserFacade userFacade;
+
+    @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = APPLICATION_JSON_VALUE)
+    public void addUser(@RequestBody User user){
+        userFacade.addUser(user);
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/buy", params = {"userId", "currencyId", "quantity"})
+    public void buy(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
+                    @RequestParam("quantity") double quantity) throws Exception{
+        userFacade.buy(userId, currencyId, quantity);
+    }
+
+    @RequestMapping(method = RequestMethod.PATCH, value = "/sell", params = {"userId", "currencyId", "quantity"})
+    public void sell(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
+                     @RequestParam("quantity") double quantity) throws Exception{
+        userFacade.sell(userId,currencyId,quantity);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/wallet")
+    public Map<Currency, Double> getWallet (@PathVariable("id") Long userId) throws Exception{
+        return userFacade.getActualWallet(userId);
+    }
 
 
 }

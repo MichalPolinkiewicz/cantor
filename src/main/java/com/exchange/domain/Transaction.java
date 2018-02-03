@@ -1,7 +1,5 @@
 package com.exchange.domain;
 
-import com.exchange.domain.currency.Currency;
-
 import java.util.Date;
 
 /**
