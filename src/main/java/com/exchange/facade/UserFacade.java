@@ -11,11 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.time.Instant;
+import java.util.*;
 
 /**
  * Created by Lenovo on 02.02.2018.
@@ -90,7 +87,7 @@ public class UserFacade {
 
             user.setSaldo(user.getSaldo() - priceForUser);
             Transaction transaction = new Transaction(user, currency,
-                    java.sql.Date.valueOf(LocalDate.now()),"buy", quantity,totalPrice, currency.getSellPrice());
+                    Date.from(Instant.now()),"buy", quantity,totalPrice, currency.getSellPrice());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);
@@ -117,7 +114,7 @@ public class UserFacade {
             double userOldValue = user.getWallet().get(currency);
             user.getWallet().replace(currency, userOldValue-quantity);
             user.setSaldo(user.getSaldo()+price);
-            Transaction transaction = new Transaction(user, currency, java.sql.Date.valueOf(LocalDate.now()),"sell", quantity,price, currency.getPurchasePrice());
+            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"sell", quantity,price, currency.getPurchasePrice());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);

@@ -12,6 +12,7 @@ public class Currency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "currencyId")
     private Long id;
     private String name;
     private String code;

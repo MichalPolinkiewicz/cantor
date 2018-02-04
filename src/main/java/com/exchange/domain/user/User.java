@@ -17,6 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userId")
     private Long id;
     private String name;
     private String surname;
@@ -34,7 +35,7 @@ public class User {
     @JoinTable(
             name = "usersAndRoles",
             joinColumns = {@JoinColumn(name = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "id")})
+            inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private Set<UserRole> roles;
 
     @OneToMany(mappedBy = "user")

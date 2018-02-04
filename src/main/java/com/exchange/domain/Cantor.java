@@ -14,6 +14,7 @@ public class Cantor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cantorId")
     private Long id;
     private String dateOfActualization;
     @ElementCollection

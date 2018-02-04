@@ -1,9 +1,6 @@
 package com.exchange.domain.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Lenovo on 03.02.2018.
@@ -13,6 +10,7 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "userRoleId")
     private Long id;
     private String role;
 

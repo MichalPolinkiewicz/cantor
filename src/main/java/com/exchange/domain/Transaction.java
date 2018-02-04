@@ -3,7 +3,7 @@ package com.exchange.domain;
 import com.exchange.domain.user.User;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 
 /**
@@ -14,6 +14,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "transactionId")
     private Long id;
     @ManyToOne
     private User user;
