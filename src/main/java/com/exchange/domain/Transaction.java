@@ -3,7 +3,8 @@ package com.exchange.domain;
 import com.exchange.domain.user.User;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+
 
 /**
  * Created by Lenovo on 04.02.2018.
