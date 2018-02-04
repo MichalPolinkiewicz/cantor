@@ -1,31 +1,20 @@
 package com.exchange.domain;
 
-import org.springframework.stereotype.Component;
-
-import javax.persistence.*;
 import java.util.Map;
 
 /**
- * Created by Lenovo on 01.02.2018.
+ * Created by Lenovo on 03.02.2018.
  */
-@Entity
-@Component
-public class Cantor {
+public class CantorDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String dateOfActualization;
-    @ElementCollection
-    @CollectionTable(name = "cantorQuantitys", joinColumns = {@JoinColumn(name = "cantorId")})
-    @MapKeyJoinColumn(name = "currencyId")
-    @Column(name = "quantityLeft")
     private Map<Currency, Double> portfolio;
 
-    public Cantor() {
+    public CantorDto() {
     }
 
-    public Cantor(Long id,String dateOfActualization, Map<Currency, Double> portfolio) {
+    public CantorDto(Long id, String dateOfActualization, Map<Currency, Double> portfolio) {
         this.id = id;
         this.dateOfActualization = dateOfActualization;
         this.portfolio = portfolio;

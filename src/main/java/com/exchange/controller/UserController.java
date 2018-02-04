@@ -1,7 +1,7 @@
 package com.exchange.controller;
 
 import com.exchange.domain.Currency;
-import com.exchange.domain.User;
+import com.exchange.domain.user.User;
 import com.exchange.facade.UserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class UserController {
     private UserFacade userFacade;
 
     @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = APPLICATION_JSON_VALUE)
-    public void addUser(@RequestBody User user){
+    public void addUser(@RequestBody User user) throws Exception{
         userFacade.addUser(user);
     }
 

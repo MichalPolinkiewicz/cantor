@@ -1,17 +1,13 @@
 package com.exchange.domain;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Lenovo on 01.02.2018.
+ * Created by Lenovo on 03.02.2018.
  */
-@Entity
-public class Currency {
+public class CurrencyDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String code;
@@ -19,15 +15,12 @@ public class Currency {
     private double purchasePrice;
     private double sellPrice;
     private double averagePrice;
-    @Transient
     private List<Double> averagePrices = new ArrayList<>();
-    @OneToMany(mappedBy = "currency")
-    private List<Transaction> transactions;
 
-    public Currency() {
+    public CurrencyDto() {
     }
 
-    public Currency(Long id, String name, String code, int unit, double purchasePrice, double sellPrice, double averagePrice, List<Double> averagePrices) {
+    public CurrencyDto(Long id, String name, String code, int unit, double purchasePrice, double sellPrice, double averagePrice, List<Double> averagePrices) {
         this.id = id;
         this.name = name;
         this.code = code;

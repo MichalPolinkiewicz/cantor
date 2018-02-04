@@ -1,6 +1,6 @@
 package com.exchange.repository;
 
-import com.exchange.domain.User;
+import com.exchange.domain.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Override
     User save (User user);
-
     Optional<User> findUserById(Long id);
+    Optional<User> findUserByName(String name);
+    Optional<User> findUserBySurname(String surname);
 }

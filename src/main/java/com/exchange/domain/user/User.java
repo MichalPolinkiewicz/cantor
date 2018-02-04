@@ -1,9 +1,13 @@
-package com.exchange.domain;
+package com.exchange.domain.user;
 
+import com.exchange.domain.Currency;
+import com.exchange.domain.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Lenovo on 01.02.2018.
@@ -24,8 +28,26 @@ public class User {
     @MapKeyJoinColumn(name = "currencyId")
     @Column(name = "quantity")
     private Map<Currency, Double> wallet;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usersAndRoles",
+            joinColumns = {@JoinColumn(name = "USER")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE")})
+    private Set<UserRole> roles;
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
 
     public User() {
+    }
+
+    public User(User user) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.password = password;
+        this.saldo = saldo;
+        this.wallet = wallet;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -74,5 +96,13 @@ public class User {
 
     public void setWallet(Map<Currency, Double> wallet) {
         this.wallet = wallet;
+    }
+
+    public Set<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 }

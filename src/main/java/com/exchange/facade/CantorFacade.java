@@ -2,9 +2,9 @@ package com.exchange.facade;
 
 import com.exchange.client.CurrencyClient;
 import com.exchange.client.Item;
-import com.exchange.client.ResponseObject;
 import com.exchange.domain.Cantor;
 import com.exchange.domain.Currency;
+import com.exchange.mapper.CantorMapper;
 import com.exchange.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +25,8 @@ public class CantorFacade {
     private Cantor cantor;
     @Autowired
     private DbService dbService;
+    @Autowired
+    private CantorMapper cantorMapper;
 
     public void openCantor(){
         List<Item> items = currencyClient.getDataFromServer().getItems();
@@ -73,8 +75,8 @@ public class CantorFacade {
             dbService.saveCantor(cantor);
     }}
 
-    public ResponseObject getDataFromServer(){
-        return currencyClient.getDataFromServer();
+    public String getActualizationTime(){
+        return cantorMapper.mapToCantorDto(cantor).getDateOfActualization();
     }
 
     public Cantor getCantor(){
