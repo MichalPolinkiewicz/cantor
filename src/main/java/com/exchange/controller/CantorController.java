@@ -37,5 +37,4 @@ public class CantorController {
         return cantorFacade.getActualizationTime();
     }
 
-
 }
