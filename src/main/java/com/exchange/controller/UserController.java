@@ -26,6 +26,17 @@ public class UserController {
         userFacade.addUser(user);
     }
 
+    @RequestMapping(method = RequestMethod.PATCH, value = "/init", params = {"userId", "currencyId", "value"})
+    public void initWallet(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
+                           @RequestParam("value") double value) throws Exception{
+        userFacade.initWallet(userId, currencyId, value);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/edit")
+    public User editUser(@RequestBody User user) throws Exception{
+        return userFacade.editUser(user);
+    }
+
     @RequestMapping(method = RequestMethod.PATCH, value = "/buy", params = {"userId", "currencyId", "quantity"})
     public void buy(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
                     @RequestParam("quantity") double quantity) throws Exception{
@@ -42,6 +53,5 @@ public class UserController {
     public Map<Currency, Double> getWallet (@PathVariable("id") Long userId) throws Exception{
         return userFacade.getActualWallet(userId);
     }
-
 
 }

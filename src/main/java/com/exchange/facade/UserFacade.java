@@ -37,8 +37,25 @@ public class UserFacade {
         userRole.setRole("USER");
         roleList.add(userRole);
         user.setRoles(roleList);
+        user.setSaldo(1500.0);
 
         dbService.saveUser(user);
+    }
+
+    public void initWallet(Long userId, Long currencyId, double value) throws Exception{
+        Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
+        User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
+        if (value > 1000) throw new NotAveliableException();
+        if(user.getWallet().containsKey(currency)){
+            user.getWallet().replace(currency, value);
+        }
+        user.getWallet().put(currency, value);
+        dbService.saveUser(user);
+    }
+
+    public User editUser(User user) throws Exception{
+        User user1 = dbService.getUserById(user.getId()).orElseThrow(NotAveliableException::new);
+        return dbService.saveUser(user);
     }
 
     @Transactional
@@ -49,7 +66,8 @@ public class UserFacade {
         int unit = currency.getUnit();
         boolean isMultiply = quantity % unit==0;
         double actualPrice = currency.getSellPrice() / unit;
-        double priceForUser = quantity * actualPrice;
+        double totalPrice = currency.getSellPrice() * quantity;
+        double priceForUser = (quantity * actualPrice) * unit;
 
         double cantorQty = cantor.getPortfolio().get(currency);
         boolean aveliable = cantorQty > quantity;
@@ -67,7 +85,7 @@ public class UserFacade {
                 }
 
             user.setSaldo(user.getSaldo() - priceForUser);
-            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"buy", quantity,priceForUser, currency.getSellPrice());
+            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"buy", quantity,totalPrice, currency.getSellPrice());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);

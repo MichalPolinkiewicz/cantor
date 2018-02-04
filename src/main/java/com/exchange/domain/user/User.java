@@ -20,6 +20,7 @@ public class User {
     private Long id;
     private String name;
     private String surname;
+    private String login;
     private String password;
     private double saldo;
     @JsonIgnore
@@ -44,6 +45,7 @@ public class User {
         this.id = id;
         this.name = name;
         this.surname = surname;
+        this.login = login;
         this.password = password;
         this.saldo = saldo;
         this.wallet = wallet;
@@ -72,6 +74,14 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -104,5 +114,13 @@ public class User {
 
     public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

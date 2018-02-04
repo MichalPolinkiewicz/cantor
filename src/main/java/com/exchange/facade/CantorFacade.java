@@ -32,7 +32,7 @@ public class CantorFacade {
         for(Item item : items){
             Currency currency = new Currency();
             currency.setCode(item.getCode());
-            portfolio.put(currency, 10000.0);
+            portfolio.put(currency, 5000.0);
             dbService.saveCurrency(currency);
         }
 
