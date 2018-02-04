@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("v1/exchange/").permitAll()
                 .antMatchers("/welcome").permitAll()
                 .antMatchers("/welcome/create").permitAll()
-                .antMatchers("http://localhost:8080/v1/user/add").permitAll()
+                .antMatchers("https://immense-beach-79323.herokuapp.com/v1/user/add").permitAll()
                 .and().formLogin()
                 .defaultSuccessUrl("http://localhost:8080/v1/exchange/logged")
                 .and().rememberMe().and()
