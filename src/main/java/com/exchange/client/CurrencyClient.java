@@ -1,6 +1,7 @@
 package com.exchange.client;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,11 +11,14 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class CurrencyClient {
 
+    @Value("${currencies.endpoint}")
+    private String currenciesEndpoint;
+
     @Autowired
     private RestTemplate restTemplate;
 
     public ResponseObject getDataFromServer(){
         restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://webtask.future-processing.com:8068/currencies", ResponseObject.class);
+        return restTemplate.getForObject(currenciesEndpoint, ResponseObject.class);
     }
 }

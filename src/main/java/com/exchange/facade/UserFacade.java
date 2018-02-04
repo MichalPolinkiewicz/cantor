@@ -9,6 +9,7 @@ import com.exchange.exception.NotAveliableException;
 import com.exchange.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.*;
@@ -40,6 +41,7 @@ public class UserFacade {
         dbService.saveUser(user);
     }
 
+    @Transactional
     public void buy(Long userId, Long currencyId, Double quantity) throws Exception{
         User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
         Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
@@ -64,15 +66,19 @@ public class UserFacade {
                     user.getWallet().put(currency, quantity);
                 }
 
-                user.setSaldo(user.getSaldo() - priceForUser);
+            user.setSaldo(user.getSaldo() - priceForUser);
+            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"buy", quantity,priceForUser, currency.getSellPrice());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
+            dbService.saveTransaction(transaction);
+
             } else {
             throw new NotAveliableException();
         }
     }
 
 
+    @Transactional
     public void sell(Long userId, Long currencyId, Double quantity) throws Exception{
         User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
         Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
