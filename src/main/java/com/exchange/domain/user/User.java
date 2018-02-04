@@ -34,7 +34,7 @@ public class User {
     @JoinTable(
             name = "usersAndRoles",
             joinColumns = {@JoinColumn(name = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "roleId")})
+            inverseJoinColumns = {@JoinColumn(name = "id")})
     private Set<UserRole> roles;
 
     @OneToMany(mappedBy = "user")
