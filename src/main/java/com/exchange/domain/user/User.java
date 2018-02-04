@@ -33,8 +33,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "usersAndRoles",
-            joinColumns = {@JoinColumn(name = "USER")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE")})
+            joinColumns = {@JoinColumn(name = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private Set<UserRole> roles;
 
     @OneToMany(mappedBy = "user")
