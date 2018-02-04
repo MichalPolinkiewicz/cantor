@@ -29,12 +29,14 @@ public class User {
     @MapKeyJoinColumn(name = "currencyId")
     @Column(name = "quantity")
     private Map<Currency, Double> wallet;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "usersAndRoles",
             joinColumns = {@JoinColumn(name = "USER")},
             inverseJoinColumns = {@JoinColumn(name = "ROLE")})
     private Set<UserRole> roles;
+
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
 
@@ -42,14 +44,15 @@ public class User {
     }
 
     public User(User user) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.login = login;
-        this.password = password;
-        this.saldo = saldo;
-        this.wallet = wallet;
-        this.roles = roles;
+        this.id = user.getId();
+        this.name = user.getName();
+        this.surname = user.getSurname();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.saldo = user.getSaldo();
+        this.wallet = user.getWallet();
+        this.roles = user.getRoles();
+        this.transactions = user.getTransactions();
     }
 
     public Long getId() {

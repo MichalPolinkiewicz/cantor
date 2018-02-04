@@ -32,7 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/").permitAll();
+        http.authorizeRequests()
+                .antMatchers("v1/exchange/").permitAll()
+                .antMatchers("/welcome").permitAll()
+                .antMatchers("/welcome/create").permitAll()
+                .antMatchers("http://localhost:8080/v1/user/add").permitAll()
+                .and().formLogin()
+                .defaultSuccessUrl("http://localhost:8080/v1/exchange/logged")
+                .and().rememberMe().and()
+                .logout()
+        .logoutSuccessUrl("http://localhost:8080/v1/exchange/");
     }
 
     private PasswordEncoder getPasswordEncoder(){

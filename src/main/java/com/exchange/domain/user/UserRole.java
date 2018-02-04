@@ -19,6 +19,10 @@ public class UserRole {
     public UserRole() {
     }
 
+    public UserRole(String role) {
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }

@@ -4,10 +4,8 @@ import com.exchange.domain.Cantor;
 import com.exchange.domain.Transaction;
 import com.exchange.domain.user.User;
 import com.exchange.domain.Currency;
-import com.exchange.repository.CantorRepository;
-import com.exchange.repository.CurrencyRepository;
-import com.exchange.repository.TransactionRepository;
-import com.exchange.repository.UserRepository;
+import com.exchange.domain.user.UserRole;
+import com.exchange.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,8 @@ public class DbService {
     private UserRepository userRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private UserRoleRepository userRoleRepository;
 
     public Currency saveCurrency(Currency currency){
         return currencyRepository.save(currency);
@@ -36,14 +36,16 @@ public class DbService {
         return currencyRepository.findCurrencyById(id);
     }
 
-
-
     public Cantor saveCantor(Cantor cantor){
         return cantorRepository.save(cantor);
     }
 
     public User saveUser(User user){
         return userRepository.save(user);
+    }
+
+    public UserRole saveUserRole(UserRole userRole){
+        return userRoleRepository.save(userRole);
     }
 
     public Optional<User> getUserById(Long id){

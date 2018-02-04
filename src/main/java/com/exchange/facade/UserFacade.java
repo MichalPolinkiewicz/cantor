@@ -36,10 +36,11 @@ public class UserFacade {
         UserRole userRole = new UserRole();
         userRole.setRole("USER");
         roleList.add(userRole);
+        dbService.saveUserRole(userRole);
         user.setRoles(roleList);
         user.setSaldo(1500.0);
-
         dbService.saveUser(user);
+
     }
 
     public void initWallet(Long userId, Long currencyId, double value) throws Exception{
