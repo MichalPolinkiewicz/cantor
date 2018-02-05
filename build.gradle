@@ -30,5 +30,5 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '1.5.9.RELEASE'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '1.5.9.RELEASE'
-	compile('org.postgresql:postgresql')
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 }
