@@ -31,7 +31,7 @@ public class User {
     @MapKeyJoinColumn(name = "currency_id")
     @Column(name = "quantity")
     private Map<Currency, Double> wallet;
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "usersAndRoles",
