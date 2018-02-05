@@ -10,7 +10,7 @@ public class UserRole {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_role_Id")
+    @Column(name = "user_role_id")
     private Long id;
     private String role;
 
