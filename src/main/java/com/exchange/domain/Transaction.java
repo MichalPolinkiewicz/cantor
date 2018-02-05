@@ -1,6 +1,7 @@
 package com.exchange.domain;
 
 import com.exchange.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,8 +18,10 @@ public class Transaction {
     @Column(name = "transaction_Id")
     private Long id;
     @ManyToOne
+    @JsonIgnore
     private User user;
     @ManyToOne
+    @JsonIgnore
     private Currency currency;
     private Date date;
     private String type;
