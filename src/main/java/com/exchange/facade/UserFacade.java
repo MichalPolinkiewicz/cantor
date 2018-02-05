@@ -45,6 +45,10 @@ public class UserFacade {
         return dbService.getUsers();
     }
 
+    public User getUserById(Long id) throws Exception{
+        return dbService.getUserById(id).orElseThrow(NotAveliableException::new);
+    }
+
     public void initWallet(Long userId, Long currencyId, double value) throws Exception{
         Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
         User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);

@@ -60,4 +60,14 @@ public class UserController {
         return userFacade.getUsers();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public User getUser(@PathVariable("id") Long id) throws Exception{
+        return userFacade.getUserById(id);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/saldo")
+    public double getSaldo(@PathVariable("id") Long id) throws Exception{
+        return userFacade.getSaldo(id);
+    }
+
 }
