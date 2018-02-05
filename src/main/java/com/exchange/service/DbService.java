@@ -1,14 +1,15 @@
 package com.exchange.service;
 
 import com.exchange.domain.Cantor;
+import com.exchange.domain.Currency;
 import com.exchange.domain.Transaction;
 import com.exchange.domain.user.User;
-import com.exchange.domain.Currency;
 import com.exchange.domain.user.UserRole;
 import com.exchange.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -42,6 +43,10 @@ public class DbService {
 
     public User saveUser(User user){
         return userRepository.save(user);
+    }
+
+    public List<User> getUsers(){
+        return userRepository.getUsers();
     }
 
     public UserRole saveUserRole(UserRole userRole){

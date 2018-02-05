@@ -4,6 +4,7 @@ import com.exchange.domain.user.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -18,4 +19,5 @@ public interface UserRepository extends CrudRepository<User, Long> {
     Optional<User> findUserByName(String name);
     Optional<User> findUserBySurname(String surname);
     Optional<User> findUserByLogin(String login);
+    List<User> getUsers();
 }
