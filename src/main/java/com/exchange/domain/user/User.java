@@ -37,7 +37,6 @@ public class User {
             joinColumns = {@JoinColumn(name = "userId")},
             inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private Set<UserRole> roles;
-
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
 

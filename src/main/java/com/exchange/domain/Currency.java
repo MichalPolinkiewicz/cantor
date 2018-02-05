@@ -1,7 +1,6 @@
 package com.exchange.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,15 +19,13 @@ public class Currency {
     private double purchasePrice;
     private double sellPrice;
     private double averagePrice;
-    @Transient
-    private List<Double> averagePrices = new ArrayList<>();
     @OneToMany(mappedBy = "currency")
     private List<Transaction> transactions;
 
     public Currency() {
     }
 
-    public Currency(Long id, String name, String code, int unit, double purchasePrice, double sellPrice, double averagePrice, List<Double> averagePrices) {
+    public Currency(Long id, String name, String code, int unit, double purchasePrice, double sellPrice, double averagePrice) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -36,7 +33,6 @@ public class Currency {
         this.purchasePrice = purchasePrice;
         this.sellPrice = sellPrice;
         this.averagePrice = averagePrice;
-        this.averagePrices = averagePrices;
     }
 
     public Long getId() {
@@ -95,24 +91,24 @@ public class Currency {
         this.averagePrice = averagePrice;
     }
 
-    public List<Double> getAveragePrices() {
-        return averagePrices;
+    public List<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public void setAveragePrices(List<Double> averagePrices) {
-        this.averagePrices = averagePrices;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override
     public String toString() {
         return "Currency{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", unit=" + unit +
                 ", purchasePrice=" + purchasePrice +
                 ", sellPrice=" + sellPrice +
                 ", averagePrice=" + averagePrice +
-                ", averagePrices=" + averagePrices +
                 '}';
     }
 

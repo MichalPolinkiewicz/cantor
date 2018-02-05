@@ -62,9 +62,6 @@ public class CantorFacade {
                         currency.setPurchasePrice(item.getPurchasePrice());
                         currency.setSellPrice(item.getSellPrice());
                         currency.setAveragePrice(item.getAveragePrice());
-                        List<Double> prices = currency.getAveragePrices();
-                        prices.add(item.getAveragePrice());
-                        currency.setAveragePrices(prices);
                         dbService.saveCurrency(currency);
                     }
                 }
