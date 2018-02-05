@@ -32,15 +32,14 @@ public class UserFacade {
         if (userNm.isPresent() & userSrn.isPresent()){
             throw new NotAveliableException();
         }
+        user.setSaldo(1500.0);
+        dbService.saveUser(user);
         Set<UserRole> roleList = new HashSet<>();
         UserRole userRole = new UserRole();
         userRole.setRole("USER");
         roleList.add(userRole);
         user.setRoles(roleList);
-        user.setSaldo(1500.0);
         dbService.saveUserRole(userRole);
-        dbService.saveUser(user);
-
     }
 
     public void initWallet(Long userId, Long currencyId, double value) throws Exception{
