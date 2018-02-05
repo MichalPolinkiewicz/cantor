@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Created by Lenovo on 02.02.2018.
@@ -33,10 +32,7 @@ public class CantorFacade {
         for(Item item : items){
             Currency currency = new Currency();
             currency.setCode(item.getCode());
-            if (
-            portfolio.keySet().stream()
-                    .map(currency1 -> currency.getCode()).collect(Collectors.toList()).contains(item.getCode())){
-            //if(portfolio.containsKey(currency))
+            if(portfolio.containsKey(currency)){
                 portfolio.replace(currency, portfolio.get(currency));
             } else {
                 portfolio.put(currency, 3000.0);
