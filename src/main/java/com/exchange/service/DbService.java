@@ -46,7 +46,7 @@ public class DbService {
     }
 
     public List<User> getUsers(){
-        return userRepository.getUsers();
+        return userRepository.findAll();
     }
 
     public UserRole saveUserRole(UserRole userRole){
