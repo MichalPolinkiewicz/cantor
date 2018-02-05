@@ -25,7 +25,6 @@ public class UserFacade {
     @Autowired
     private DbService dbService;
 
-
     public void addUser(User user) throws Exception{
         Optional<User> userSrn = dbService.findUserBySurname(user.getSurname());
         Optional<User> userNm = dbService.getUserByName(user.getName());
@@ -33,12 +32,12 @@ public class UserFacade {
             throw new NotAveliableException();
         }
         user.setSaldo(1500.0);
-        dbService.saveUser(user);
         Set<UserRole> roleList = new HashSet<>();
         UserRole userRole = new UserRole();
         userRole.setRole("USER");
         roleList.add(userRole);
         user.setRoles(roleList);
+        dbService.saveUser(user);
         dbService.saveUserRole(userRole);
     }
 

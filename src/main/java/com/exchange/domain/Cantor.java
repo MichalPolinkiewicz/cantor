@@ -14,12 +14,12 @@ public class Cantor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cantorId")
+    @Column(name = "cantor_Id")
     private Long id;
     private String dateOfActualization;
     @ElementCollection
-    @CollectionTable(name = "cantorQuantitys", joinColumns = {@JoinColumn(name = "cantorId")})
-    @MapKeyJoinColumn(name = "currencyId")
+    @CollectionTable(name = "cantorQuantitys", joinColumns = {@JoinColumn(name = "cantor_Id")})
+    @MapKeyJoinColumn(name = "currency_Id")
     @Column(name = "quantityLeft")
     private Map<Currency, Double> portfolio;
 

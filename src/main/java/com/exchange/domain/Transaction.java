@@ -14,7 +14,7 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transactionId")
+    @Column(name = "transaction_Id")
     private Long id;
     @ManyToOne
     private User user;

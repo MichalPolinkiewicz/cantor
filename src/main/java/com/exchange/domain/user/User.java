@@ -17,7 +17,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
+    @Column(name = "user_Id")
     private Long id;
     private String name;
     private String surname;
@@ -26,16 +26,16 @@ public class User {
     private double saldo;
     @JsonIgnore
     @ElementCollection
-    @CollectionTable(name = "userQuantitys", joinColumns = {@JoinColumn(name = "userId")})
-    @MapKeyJoinColumn(name = "currencyId")
+    @CollectionTable(name = "userQuantitys", joinColumns = {@JoinColumn(name = "user_Id")})
+    @MapKeyJoinColumn(name = "currency_Id")
     @Column(name = "quantity")
     private Map<Currency, Double> wallet;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "usersAndRoles",
-            joinColumns = {@JoinColumn(name = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "roleId")})
+            joinColumns = {@JoinColumn(name = "user_Id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_Id")})
     private Set<UserRole> roles;
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
