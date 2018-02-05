@@ -1,5 +1,7 @@
 package com.exchange.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,7 @@ public class Currency {
     private double purchasePrice;
     private double sellPrice;
     private double averagePrice;
+    @JsonIgnore
     @OneToMany(mappedBy = "currency")
     private List<Transaction> transactions;
 
