@@ -39,7 +39,6 @@ public class CantorFacade {
             }
             dbService.saveCurrency(currency);
         }
-
         cantor.setPortfolio(portfolio);
         dbService.saveCantor(cantor);
     }

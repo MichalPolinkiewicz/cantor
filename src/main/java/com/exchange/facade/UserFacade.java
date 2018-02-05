@@ -73,12 +73,11 @@ public class UserFacade {
         int unit = currency.getUnit();
         boolean isMultiply = quantity % unit==0;
         double actualPrice = currency.getSellPrice() / unit;
-        double totalPrice = currency.getSellPrice() * quantity;
-        double priceForUser = (quantity * actualPrice) * unit;
+        double totalPrice = actualPrice * quantity;
 
         double cantorQty = cantor.getPortfolio().get(currency);
         boolean aveliable = cantorQty > quantity;
-        boolean enoughMoney = user.getSaldo() > priceForUser;
+        boolean enoughMoney = user.getSaldo() > totalPrice;
 
         if(isMultiply & aveliable & enoughMoney){
             double newValue = cantor.getPortfolio().get(currency) - quantity;
@@ -91,7 +90,7 @@ public class UserFacade {
                     user.getWallet().put(currency, quantity);
                 }
 
-            user.setSaldo(user.getSaldo() - priceForUser);
+            user.setSaldo(user.getSaldo() - totalPrice);
             Transaction transaction = new Transaction(user, currency,
                     Date.from(Instant.now()),"buy", quantity,totalPrice, currency.getSellPrice());
             dbService.saveUser(user);
