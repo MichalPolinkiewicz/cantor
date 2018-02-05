@@ -1,7 +1,8 @@
 package com.exchange.domain;
 
 import com.exchange.domain.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,6 +12,7 @@ import java.util.Date;
  * Created by Lenovo on 04.02.2018.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Transaction {
 
     @Id
@@ -18,10 +20,8 @@ public class Transaction {
     @Column(name = "transaction_Id")
     private Long id;
     @ManyToOne
-    @JsonIgnore
     private User user;
     @ManyToOne
-    @JsonIgnore
     private Currency currency;
     private Date date;
     private String type;
