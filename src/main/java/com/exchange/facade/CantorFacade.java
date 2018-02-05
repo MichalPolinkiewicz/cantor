@@ -30,11 +30,14 @@ public class CantorFacade {
 
         List<Item> items = currencyClient.getDataFromServer().getItems();
         Map<Currency, Double> portfolio = new HashMap<>();
-
         for(Item item : items){
             Currency currency = new Currency();
             currency.setCode(item.getCode());
-            portfolio.put(currency, 5000.0);
+            if(portfolio.containsKey(currency)){
+                portfolio.replace(currency, portfolio.get(currency));
+            } else {
+                portfolio.put(currency, 3000.0);
+            }
             dbService.saveCurrency(currency);
         }
 
