@@ -15,6 +15,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 /**
  * Created by Lenovo on 01.02.2018.
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/user")
 public class UserController {

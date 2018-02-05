@@ -12,4 +12,5 @@ public interface CantorRepository extends CrudRepository<Cantor, Long> {
 
     @Override
     Cantor save (Cantor cantor);
+
 }

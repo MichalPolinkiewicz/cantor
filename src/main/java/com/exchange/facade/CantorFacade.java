@@ -26,6 +26,7 @@ public class CantorFacade {
     private DbService dbService;
 
     public void openCantor(){
+
         List<Item> items = currencyClient.getDataFromServer().getItems();
         Map<Currency, Double> portfolio = new HashMap<>();
 

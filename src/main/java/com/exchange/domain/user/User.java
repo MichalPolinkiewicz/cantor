@@ -19,10 +19,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
+    @JsonIgnore
     private Long id;
     private String name;
     private String surname;
     private String login;
+    @JsonIgnore
     private String password;
     private double saldo;
     @JsonIgnore
@@ -128,4 +130,5 @@ public class User {
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
+
 }
