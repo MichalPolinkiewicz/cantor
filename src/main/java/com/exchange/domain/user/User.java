@@ -13,6 +13,7 @@ import java.util.Set;
  * Created by Lenovo on 01.02.2018.
  */
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
