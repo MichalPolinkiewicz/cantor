@@ -1,12 +1,14 @@
 package com.exchange.controller;
 
-import com.exchange.domain.Cantor;
+import com.exchange.domain.Currency;
 import com.exchange.facade.CantorFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by Lenovo on 01.02.2018.
@@ -30,7 +32,7 @@ public class CantorController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/cantor")
-    public Cantor getCantor(){
+    public List<Currency> getCantor(){
         return cantorFacade.getCantor();
     }
 

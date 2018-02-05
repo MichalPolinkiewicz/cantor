@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Lenovo on 02.02.2018.
@@ -74,8 +75,10 @@ public class CantorFacade {
         return cantor.getDateOfActualization();
     }
 
-    public Cantor getCantor(){
-        return cantor;
+    public List<Currency> getCantor(){
+        return cantor.getPortfolio().entrySet().stream()
+                .map(currencyDoubleEntry -> currencyDoubleEntry.getKey())
+                .collect(Collectors.toList());
     }
 
 }
