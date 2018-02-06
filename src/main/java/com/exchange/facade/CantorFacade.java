@@ -78,7 +78,7 @@ public class CantorFacade {
     }
 
     public Cantor getCantor(){
-        return dbService.getCantors().get(0);
+        return dbService.getCantors().get(1);
     }
 
     public List<Cantor> getAll(){
