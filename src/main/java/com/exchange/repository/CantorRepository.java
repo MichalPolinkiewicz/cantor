@@ -17,5 +17,5 @@ public interface CantorRepository extends CrudRepository<Cantor, Long> {
     Cantor save (Cantor cantor);
     Optional<Cantor> getCantorById(Long id);
     List<Cantor> findAll();
-    Cantor findFirst();
+    Cantor getFirstByIdIsNotNull();
 }

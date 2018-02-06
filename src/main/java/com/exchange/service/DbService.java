@@ -50,7 +50,7 @@ public class DbService {
     }
 
     public Cantor getFirst(){
-        return cantorRepository.findFirst();
+        return cantorRepository.getFirstByIdIsNotNull();
     }
 
     public User saveUser(User user){
