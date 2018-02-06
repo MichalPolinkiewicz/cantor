@@ -1,13 +1,13 @@
 package com.exchange.controller;
 
-import com.exchange.domain.Currency;
+import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.domain.user.User;
 import com.exchange.facade.UserFacade;
+import com.exchange.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -22,6 +22,8 @@ public class UserController {
 
     @Autowired
     private UserFacade userFacade;
+    @Autowired
+    private Mapper mapper;
 
     @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = APPLICATION_JSON_VALUE)
     public void addUser(@RequestBody User user) throws Exception{
@@ -52,8 +54,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/wallet")
-    public Map<Currency, Double> getWallet (@PathVariable("id") Long userId) throws Exception{
-        return userFacade.getActualWallet(userId);
+    public List<CurrencyDto> getWallet (@PathVariable("id") Long userId) throws Exception{
+        return mapper.mapToCurrencyDtoList(userFacade.getUserById(userId));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users")

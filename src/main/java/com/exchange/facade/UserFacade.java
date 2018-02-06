@@ -21,8 +21,6 @@ import java.util.*;
 public class UserFacade {
 
     @Autowired
-    private Cantor cantor;
-    @Autowired
     private DbService dbService;
 
     public void addUser(User user) throws Exception{
@@ -69,11 +67,13 @@ public class UserFacade {
     public void buy(Long userId, Long currencyId, Double quantity) throws Exception{
         User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
         Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
+        Cantor cantor = dbService.getCantors().get(0);
 
         int unit = currency.getUnit();
         boolean isMultiply = quantity % unit==0;
         double actualPrice = currency.getSellPrice() / unit;
         double totalPrice = actualPrice * quantity;
+        String a = cantor.getDateOfActualization();
 
         double cantorQty = cantor.getPortfolio().get(currency);
         boolean aveliable = cantorQty > quantity;
@@ -107,6 +107,7 @@ public class UserFacade {
     public void sell(Long userId, Long currencyId, Double quantity) throws Exception{
         User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
         Currency currency = dbService.getCurrencyById(currencyId).orElseThrow(NotAveliableException::new);
+        Cantor cantor = dbService.getCantors().get(0);
 
         boolean hasEnough = user.getWallet().get(currency) >= quantity;
         int unit = currency.getUnit();

@@ -1,7 +1,5 @@
 package com.exchange.domain;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.Map;
 
@@ -9,7 +7,6 @@ import java.util.Map;
  * Created by Lenovo on 01.02.2018.
  */
 @Entity
-@Component
 public class Cantor {
 
     @Id
@@ -17,19 +14,13 @@ public class Cantor {
     @Column(name = "cantor_Id")
     private Long id;
     private String dateOfActualization;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "cantorQuantitys", joinColumns = {@JoinColumn(name = "cantor_Id")})
     @MapKeyJoinColumn(name = "currency_Id")
     @Column(name = "quantityLeft")
     private Map<Currency, Double> portfolio;
 
     public Cantor() {
-    }
-
-    public Cantor(Long id,String dateOfActualization, Map<Currency, Double> portfolio) {
-        this.id = id;
-        this.dateOfActualization = dateOfActualization;
-        this.portfolio = portfolio;
     }
 
     public Long getId() {

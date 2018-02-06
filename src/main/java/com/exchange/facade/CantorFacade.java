@@ -21,26 +21,27 @@ public class CantorFacade {
     @Autowired
     private CurrencyClient currencyClient;
     @Autowired
-    private Cantor cantor;
-    @Autowired
     private DbService dbService;
+    private Cantor cantor;
 
-    public void openCantor(){
-
+    public Cantor openCantor(){
         List<Item> items = currencyClient.getDataFromServer().getItems();
-        Map<Currency, Double> portfolio = new HashMap<>();
-        for(Item item : items){
-            Currency currency = new Currency();
-            currency.setCode(item.getCode());
-            if(portfolio.containsKey(currency)){
-                portfolio.replace(currency, portfolio.get(currency));
-            } else {
-                portfolio.put(currency, 3000.0);
+
+        if(dbService.getCantors().isEmpty()) {
+            cantor = new Cantor();
+            Map<Currency, Double> map = new HashMap<>();
+            for (Item item : items) {
+                Currency currency = new Currency();
+                currency.setCode(item.getCode());
+                dbService.saveCurrency(currency);
+                map.put(currency, 5000.0);
+                cantor.setPortfolio(map);
+                dbService.saveCantor(cantor);
+                actualizeCantor();
             }
-            dbService.saveCurrency(currency);
-        }
-        cantor.setPortfolio(portfolio);
-        dbService.saveCantor(cantor);
+        } else{
+            cantor = dbService.getCantors().get(0);
+        } return cantor;
     }
 
     public void actualizeCantor (){
@@ -73,11 +74,13 @@ public class CantorFacade {
     }}
 
     public String getActualizationTime(){
-        return cantor.getDateOfActualization();
+        return dbService.getCantors().get(0).getDateOfActualization();
     }
 
     public Cantor getCantor(){
-        return cantor;
+
+
+        return dbService.getCantors().get(0);
     }
 
 }

@@ -41,6 +41,14 @@ public class DbService {
         return cantorRepository.save(cantor);
     }
 
+    public Optional<Cantor> getCantorById(Long id){
+        return cantorRepository.getCantorById(id);
+    }
+
+    public List<Cantor> getCantors(){
+        return cantorRepository.findAll();
+    }
+
     public User saveUser(User user){
         return userRepository.save(user);
     }
