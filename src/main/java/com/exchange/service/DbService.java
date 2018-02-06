@@ -49,6 +49,10 @@ public class DbService {
         return cantorRepository.findAll();
     }
 
+    public Cantor getFirst(){
+        return cantorRepository.findFirst();
+    }
+
     public User saveUser(User user){
         return userRepository.save(user);
     }

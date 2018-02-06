@@ -40,7 +40,7 @@ public class CantorFacade {
                 actualizeCantor();
             }
         } else{
-            cantor = dbService.getCantors().get(0);
+            cantor = dbService.getCantors().get(1);
         } return cantor;
     }
 
@@ -78,9 +78,15 @@ public class CantorFacade {
     }
 
     public Cantor getCantor(){
-
-
         return dbService.getCantors().get(0);
+    }
+
+    public List<Cantor> getAll(){
+        return dbService.getCantors();
+    }
+
+    public Cantor getFirst(){
+        return dbService.getFirst();
     }
 
 }

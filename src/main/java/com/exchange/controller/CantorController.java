@@ -1,5 +1,6 @@
 package com.exchange.controller;
 
+import com.exchange.domain.Cantor;
 import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.facade.CantorFacade;
 import com.exchange.mapper.Mapper;
@@ -44,4 +45,13 @@ public class CantorController {
         return cantorFacade.getActualizationTime();
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    public List<Cantor> getAll(){
+        return cantorFacade.getAll();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/first")
+    public Cantor getFirst(){
+        return cantorFacade.getFirst();
+    }
 }
