@@ -27,7 +27,7 @@ public class CantorFacade {
     public Cantor openCantor(){
         List<Item> items = currencyClient.getDataFromServer().getItems();
 
-        if(dbService.getCantors().isEmpty()) {
+        if(dbService.getCantors().size()==0) {
             cantor = new Cantor();
             Map<Currency, Double> map = new HashMap<>();
             for (Item item : items) {
