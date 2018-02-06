@@ -3,9 +3,9 @@ package com.exchange.domain.user;
 import com.exchange.domain.Currency;
 import com.exchange.domain.Transaction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.internal.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
