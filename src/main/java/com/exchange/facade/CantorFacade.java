@@ -22,11 +22,10 @@ public class CantorFacade {
     private CurrencyClient currencyClient;
     @Autowired
     private DbService dbService;
-    private Cantor cantor;
 
     public Cantor openCantor(){
         List<Item> items = currencyClient.getDataFromServer().getItems();
-
+        Cantor cantor;
         if(dbService.getCantors().size()==0) {
             cantor = new Cantor();
             Map<Currency, Double> map = new HashMap<>();
@@ -45,6 +44,7 @@ public class CantorFacade {
     }
 
     public void actualizeCantor (){
+        Cantor cantor = openCantor();
         String data = currencyClient.getDataFromServer().getPublicationDate();
 
         if (!data.equals(cantor.getDateOfActualization())) {
@@ -78,6 +78,14 @@ public class CantorFacade {
     }
 
     public Cantor getCantor(){
+        return dbService.getFirst();
+    }
+
+    public List<Cantor> getAll(){
+        return dbService.getCantors();
+    }
+
+    public Cantor getFirst(){
         return dbService.getFirst();
     }
 

@@ -119,6 +119,7 @@ public class UserFacade {
             double userOldValue = user.getWallet().get(currency);
             user.getWallet().replace(currency, userOldValue-quantity);
             user.setSaldo(user.getSaldo()+price);
+            if (user.getWallet().get(currency)==0){user.getWallet().remove(currency);}
             Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"sell", quantity,price, currency.getPurchasePrice());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
