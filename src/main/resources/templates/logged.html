@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:class="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"></meta>
     <title>Title</title>
+
+    <style>
+       table[class=tableCantor]{
+           frame:border;
+           bgcolor: green;
+            }
+
+    </style>
 </head>
 <body>
+
+
+<div>
+    <h2> Currencies</h2>
+    <table class="tableCantor" bgcolor="#f5deb3" frame="box" rules="all">
+        <tr> NAME</tr>
+        <tr> CODE</tr>
+        <tr> UNIT</tr>
+        <tr> PURCHASE</tr>
+        <tr> SELL</tr>
+        <tr> AVG</tr>
+        <tr> AMOUNT</tr>
+        <tr th:each="crc : ${currencies}">
+            <table class="tableCantorInside" bgcolor="#f5deb3" cellspacing="200px" frame="box" rules="all" width="500px">
+                <tr th:each="crc : ${crc}">
+                    <td th:text="${crc.name}"></td>
+                    <td  th:text="${crc.code}"></td>
+                    <td th:text="${crc.unit}"></td>
+                    <td th:text="${crc.purchasePrice}"></td>
+                    <td th:text="${crc.sellPrice}"></td>
+                    <td th:text="${crc.averagePrice}"></td>
+                    <td th:text="${crc.amount}"></td>
+                </tr>
+            </table>
+        </tr>
+    </table>
+</div>
 
 </body>
 </html>
