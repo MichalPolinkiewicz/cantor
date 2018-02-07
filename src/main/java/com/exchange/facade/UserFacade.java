@@ -73,7 +73,6 @@ public class UserFacade {
         boolean isMultiply = quantity % unit==0;
         double actualPrice = currency.getSellPrice() / unit;
         double totalPrice = actualPrice * quantity;
-        String a = cantor.getDateOfActualization();
 
         double cantorQty = cantor.getPortfolio().get(currency);
         boolean aveliable = cantorQty > quantity;
@@ -128,16 +127,4 @@ public class UserFacade {
             throw new NotAveliableException();
         }
     }
-
-    public Map<Currency, Double> getActualWallet(Long userId) throws Exception{
-        User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
-        return user.getWallet();
-    }
-
-    public double getSaldo(Long userId)throws Exception{
-        User user = dbService.getUserById(userId).orElseThrow(NotAveliableException::new);
-        return user.getSaldo();
-    }
-
-
 }

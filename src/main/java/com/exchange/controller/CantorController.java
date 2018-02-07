@@ -1,9 +1,8 @@
 package com.exchange.controller;
 
-import com.exchange.domain.Cantor;
 import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.facade.CantorFacade;
-import com.exchange.mapper.Mapper;
+import com.exchange.mapper.CurrencyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +22,7 @@ public class CantorController {
    @Autowired
    private CantorFacade cantorFacade;
    @Autowired
-   private Mapper mapper;
+   private CurrencyMapper currencyMapper;
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/open")
     public void openCantor(){
@@ -37,21 +36,11 @@ public class CantorController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/cantor")
     public List<CurrencyDto> getActualCantorCurrencies(){
-        return mapper.mapToCurrencyDtoList(cantorFacade.getCantor());
+        return currencyMapper.mapToCurrencyDtoList(cantorFacade.getCantor());
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/time")
     public String getActualizationData(){
         return cantorFacade.getActualizationTime();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/all")
-    public List<Cantor> getAll(){
-        return cantorFacade.getAll();
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/first")
-    public Cantor getFirst(){
-        return cantorFacade.getFirst();
     }
 }

@@ -33,15 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("v1/exchange/").permitAll()
-                .antMatchers("/welcome").permitAll()
-                .antMatchers("/welcome/create").permitAll()
-                .antMatchers("https://immense-beach-79323.herokuapp.com/v1/user/add").permitAll()
+                .antMatchers("http://**/v1/exchange/welcome").permitAll()
+                .antMatchers("http://**/v1/exchange/login").permitAll()
                 .and().formLogin()
-                .defaultSuccessUrl("http://localhost:8080/v1/exchange/logged")
+                .defaultSuccessUrl("http://**/v1/exchange/logged")
                 .and().rememberMe().and()
                 .logout()
-        .logoutSuccessUrl("http://localhost:8080/v1/exchange/");
+        .logoutSuccessUrl("http://**/v1/exchange/welcome");
     }
 
     private PasswordEncoder getPasswordEncoder(){

@@ -1,9 +1,11 @@
 package com.exchange.controller;
 
 import com.exchange.domain.dto.CurrencyDto;
+import com.exchange.domain.dto.UserDto;
 import com.exchange.domain.user.User;
 import com.exchange.facade.UserFacade;
-import com.exchange.mapper.Mapper;
+import com.exchange.mapper.CurrencyMapper;
+import com.exchange.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +25,9 @@ public class UserController {
     @Autowired
     private UserFacade userFacade;
     @Autowired
-    private Mapper mapper;
+    private CurrencyMapper currencyMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = APPLICATION_JSON_VALUE)
     public void addUser(@RequestBody User user) throws Exception{
@@ -55,22 +59,17 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/wallet")
     public List<CurrencyDto> getWallet (@PathVariable("id") Long userId) throws Exception{
-        return mapper.mapToCurrencyDtoList(userFacade.getUserById(userId));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/users")
-    public List<User> getUsers(){
-        return userFacade.getUsers();
+        return currencyMapper.mapToCurrencyDtoList(userFacade.getUserById(userId));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public User getUser(@PathVariable("id") Long id) throws Exception{
-        return userFacade.getUserById(id);
+    public UserDto getUser(@PathVariable("id") Long id) throws Exception{
+        return userMapper.mapToUserDto(userFacade.getUserById(id));
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/saldo")
     public double getSaldo(@PathVariable("id") Long id) throws Exception{
-        return userFacade.getSaldo(id);
+        return userMapper.mapToUserDto(userFacade.getUserById(id)).getSaldo();
     }
 
 }

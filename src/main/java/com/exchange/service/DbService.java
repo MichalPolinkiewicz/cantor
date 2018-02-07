@@ -29,6 +29,8 @@ public class DbService {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
+    //Currency
+
     public Currency saveCurrency(Currency currency){
         return currencyRepository.save(currency);
     }
@@ -37,12 +39,9 @@ public class DbService {
         return currencyRepository.findCurrencyById(id);
     }
 
+    //Cantor
     public Cantor saveCantor(Cantor cantor){
         return cantorRepository.save(cantor);
-    }
-
-    public Optional<Cantor> getCantorById(Long id){
-        return cantorRepository.getCantorById(id);
     }
 
     public List<Cantor> getCantors(){
@@ -53,16 +52,13 @@ public class DbService {
         return cantorRepository.getFirstByIdIsNotNull();
     }
 
+    //User
     public User saveUser(User user){
         return userRepository.save(user);
     }
 
     public List<User> getUsers(){
         return userRepository.findAll();
-    }
-
-    public UserRole saveUserRole(UserRole userRole){
-        return userRoleRepository.save(userRole);
     }
 
     public Optional<User> getUserById(Long id){
@@ -77,6 +73,11 @@ public class DbService {
         return userRepository.findUserBySurname(surname);
     }
 
+    //UserRole
+    public UserRole saveUserRole(UserRole userRole){
+        return userRoleRepository.save(userRole);
+    }
+    //Transaction
     public Transaction saveTransaction(Transaction transaction){
         return transactionRepository.save(transaction);
     }

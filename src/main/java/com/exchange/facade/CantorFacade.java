@@ -81,12 +81,4 @@ public class CantorFacade {
         return dbService.getFirst();
     }
 
-    public List<Cantor> getAll(){
-        return dbService.getCantors();
-    }
-
-    public Cantor getFirst(){
-        return dbService.getFirst();
-    }
-
 }

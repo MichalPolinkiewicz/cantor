@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Lenovo on 06.02.2018.
  */
 @Component
-public class Mapper {
+public class CurrencyMapper {
 
     public List<CurrencyDto> mapToCurrencyDtoList(Cantor cantor){
 
