@@ -38,9 +38,10 @@ public class CantorFacade {
                 dbService.saveCantor(cantor);
                 actualizeCantor();
             }
-        } else{
-            cantor = dbService.getFirst();
-        } return cantor;
+        }
+        cantor = dbService.getFirst();
+
+        return cantor;
     }
 
     public void actualizeCantor (){
@@ -71,7 +72,8 @@ public class CantorFacade {
                 }
             }
             dbService.saveCantor(cantor);
-    }}
+        }
+    }
 
     public String getActualizationTime(){
         return dbService.getFirst().getDateOfActualization();
@@ -80,13 +82,4 @@ public class CantorFacade {
     public Cantor getCantor(){
         return dbService.getFirst();
     }
-
-    public List<Cantor> getAll(){
-        return dbService.getCantors();
-    }
-
-    public Cantor getFirst(){
-        return dbService.getFirst();
-    }
-
 }
