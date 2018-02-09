@@ -38,9 +38,9 @@ public class CantorFacade {
                 dbService.saveCantor(cantor);
                 actualizeCantor();
             }
+        } else {
+            cantor = dbService.getFirst();
         }
-        cantor = dbService.getFirst();
-
         return cantor;
     }
 

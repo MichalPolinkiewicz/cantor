@@ -96,9 +96,11 @@ public class UserFacade {
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);
 
-            } else {
+            }
+            else {
             throw new NotAveliableException();
         }
+
     }
 
 
