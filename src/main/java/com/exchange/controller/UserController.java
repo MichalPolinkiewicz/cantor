@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
 
 
 /**
@@ -29,8 +29,8 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = APPLICATION_JSON_VALUE)
-    public void addUser(@RequestBody User user) throws Exception{
+    @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = {APPLICATION_FORM_URLENCODED_VALUE})
+    public void addUser(@ModelAttribute User user) throws Exception{
         userFacade.addUser(user);
     }
 

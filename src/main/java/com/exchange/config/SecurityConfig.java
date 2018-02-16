@@ -33,13 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("http://**/v1/exchange/welcome").permitAll()
-                .antMatchers("http://**/v1/exchange/login").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/exchange/createAccount").permitAll()
+                .antMatchers("/exchange/**").authenticated()
                 .and().formLogin()
-                .defaultSuccessUrl("http://**/v1/exchange/logged")
+                .loginPage("/login").permitAll()
+                .defaultSuccessUrl("/v1/exchange/main")
                 .and().rememberMe().and()
                 .logout()
-        .logoutSuccessUrl("http://**/v1/exchange/welcome");
+        .logoutSuccessUrl("/v1/exchange/");
     }
 
     private PasswordEncoder getPasswordEncoder(){

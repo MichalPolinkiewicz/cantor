@@ -35,8 +35,8 @@ public class CantorFacade {
                 dbService.saveCurrency(currency);
                 map.put(currency, 5000.0);
                 cantor.setPortfolio(map);
-                dbService.saveCantor(cantor);
                 actualizeCantor();
+                dbService.saveCantor(cantor);
             }
         } else {
             cantor = dbService.getFirst();
@@ -76,10 +76,16 @@ public class CantorFacade {
     }
 
     public String getActualizationTime(){
-        return dbService.getFirst().getDateOfActualization();
+
+        String date = dbService.getFirst().getDateOfActualization();
+        String day = date.substring(0, 10);
+        String hour = date.substring(11,19);
+
+        return day + " " + hour;
     }
 
     public Cantor getCantor(){
         return dbService.getFirst();
     }
+
 }

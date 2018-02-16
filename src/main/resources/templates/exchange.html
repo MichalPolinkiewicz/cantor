@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:valign="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"></meta>
+    <meta http-equiv="Refresh" content="30" />
+    <title>Testing</title>
+
+    <style>
+
+        .container
+        {
+            width: 1280px;
+            min-height: 200px;
+            margin-left: auto;
+            margin-right:auto;
+            background-color: whitesmoke;
+            position: absolute; top: 25px; right: 15px; bottom: auto; left: 15px;
+
+        }
+        .panel
+        {
+            background-color: wheat;
+            text-align: right;
+            padding: 10px;
+            font-family: calibri;
+
+        }
+        .currency-table
+        {
+            float: left;
+            background-color: whitesmoke;
+            width: 604px;
+            min-height: 100px;
+            padding: 15px;
+            text-align: center;
+            font-family: calibri;
+        }
+
+        .user-table
+        {
+            float: left;
+            background-color: whitesmoke;
+            width: 604px;
+            min-height: 100px;
+            padding: 15px;
+            text-align: center;
+            font-family: calibri;
+        }
+
+        td
+        {
+            text-transform: uppercase;
+        }
+
+        .saldo
+        {
+            clear: both;
+            background-color: wheat;
+            text-align: right;
+            padding:10px;
+            font-family: calibri;
+
+        }
+
+        button
+        {
+            background-color: wheat;
+            font-family: calibri;
+        }
+
+    </style>
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+    <div class="panel">
+        <h4>Logged as: <span th:text="${userName}"></span>
+            <form action="/logout" th:action="@{/logout}" th:method="post">
+                <button type="submit"> LOGOUT </button>
+            </form>
+        </h4>
+    </div>
+
+    <div class="currency-table">
+        <h3>Actual currencies. Date: <span th:text="${date}"></span>  </h3>
+        <table align= "center">
+            <tr>
+                <td width="80"> name </td>
+                <td width="80"> code </td>
+                <td width="80"> unit </td>
+                <td width="80"> price </td>
+                <td width="80"> amount </td>
+                <td width="80"> amount to buy</td>
+                <td width="80"> action </td>
+            </tr>
+            <body>
+            <tr>
+            <tr th:each="crc : ${currencies}">
+            <tr th:each="crc : ${crc}">
+                <td th:text="${crc.name}"></td>
+                <td  th:text="${crc.code}"></td>
+                <td th:text="${crc.unit}"></td>
+                <td th:text="${crc.sellPrice}"></td>
+                <td th:text="${crc.amount}"></td>
+                <td> <input type="text" name="..." style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
+                <td> <button> BUY </button> </td>
+            </tr>
+            </tr>
+            </tr>
+            </body>
+        </table>
+    </div>
+
+    <div class="user-table">
+        <h3>User Wallet</h3>
+        <table align="center">
+            <tr>
+                <td width="80"> currency </td>
+                <td width="80"> code </td>
+                <td width="80"> unit </td>
+                <td width="80"> amount </td>
+                <td width="80"> price </td>
+                <td width="80"> amount to sell </td>
+                <td width="80"> action </td>
+            </tr>
+            <body>
+            <tr>
+            <tr th:each="crc : ${userWallet}">
+            <tr th:each="crc : ${crc}">
+                <td th:text="${crc.name}"></td>
+                <td  th:text="${crc.code}"></td>
+                <td th:text="${crc.unit}"></td>
+                <td th:text="${crc.purchasePrice}"></td>
+                <td th:text="${crc.amount}"></td>
+                <td> <input type="text" name="..." style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
+                <td> <button> SELL </button> </td>
+            </tr>
+            </tr>
+            </tr>
+            </body>
+        </table>
+    </div>
+    <div class="saldo">
+        <h4>Available PLN : <span th:text="${saldo}"></span> </h4>
+    </div>
+
+</div>
+
+</body>
+</html>

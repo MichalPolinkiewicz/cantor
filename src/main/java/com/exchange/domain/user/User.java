@@ -27,7 +27,7 @@ public class User {
     private String password;
     private double saldo;
     @JsonIgnore
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "userQuantitys", joinColumns = {@JoinColumn(name = "user_id")})
     @MapKeyJoinColumn(name = "currency_id")
     @Column(name = "quantity")
