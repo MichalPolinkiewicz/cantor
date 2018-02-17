@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:valign="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"></meta>
     <meta http-equiv="Refresh" content="30" />
-    <title>Testing</title>
+    <title>Main</title>
 
     <style>
 
@@ -80,15 +79,19 @@
 <div class="container">
 
     <div class="panel">
+        <div class="button1">
+
+        </div>
         <h4>Logged as: <span th:text="${userName}"></span>
             <form action="/logoutuser" th:action="@{/logoutuser}" th:method="post">
                 <button type="submit"> LOGOUT </button>
             </form>
+            <button>SHOW TRANSACTIONS</button>
         </h4>
     </div>
 
     <div class="currency-table">
-        <h3>Actual currencies. Date: <span th:text="${date}"></span>  </h3>
+        <h3>Cantor. Actualization date: <span th:text="${date}"></span> GMT  </h3>
         <table align= "center">
             <tr>
                 <td width="80"> name </td>
@@ -103,13 +106,21 @@
             <tr>
             <tr th:each="crc : ${currencies}">
             <tr th:each="crc : ${crc}">
-                <td th:text="${crc.name}"></td>
+                <form th:action="@{/exchange/buy}"  method="post">
+                    <input th:type="hidden" name="userId" th:value="${userId}"></input>
+                    <input th:type="hidden" name="currencyId" th:value="${crc.id}"></input>
+
+                    <td th:text="${crc.name}"></td>
                 <td  th:text="${crc.code}"></td>
                 <td th:text="${crc.unit}"></td>
                 <td th:text="${crc.sellPrice}"></td>
                 <td th:text="${crc.amount}"></td>
-                <td> <input type="text" name="..." style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
-                <td> <button> BUY </button> </td>
+
+                <td> <input type="number" name="quantity" style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
+
+                    <td><button type="submit" >BUY </button></td>
+
+                </form>
             </tr>
             </tr>
             </tr>
@@ -133,13 +144,18 @@
             <tr>
             <tr th:each="crc : ${userWallet}">
             <tr th:each="crc : ${crc}">
-                <td th:text="${crc.name}"></td>
-                <td  th:text="${crc.code}"></td>
-                <td th:text="${crc.unit}"></td>
-                <td th:text="${crc.purchasePrice}"></td>
-                <td th:text="${crc.amount}"></td>
-                <td> <input type="text" name="..." style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
-                <td> <button> SELL </button> </td>
+                <form th:action="@{/exchange/sell}"  method="post">
+                    <input th:type="hidden" name="userId" th:value="${userId}"></input>
+                    <input th:type="hidden" name="currencyId" th:value="${crc.id}"></input>
+                    <td th:text="${crc.name}"></td>
+                    <td  th:text="${crc.code}"></td>
+                    <td th:text="${crc.unit}"></td>
+                    <td th:text="${crc.amount}"></td>
+                    <td th:text="${crc.purchasePrice}"></td>
+                    <td> <input type="number" name="quantity" style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 80px; border-style: solid; border-color: #000000; border-width: 2px" /> </td>
+                    <td><button type="submit" >SELL </button></td>
+
+                </form>
             </tr>
             </tr>
             </tr>

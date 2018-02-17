@@ -76,7 +76,7 @@ public class UserFacade {
         double totalPrice = actualPrice * quantity;
 
         double cantorQty = cantor.getPortfolio().get(currency);
-        boolean aveliable = cantorQty > quantity;
+        boolean aveliable = cantorQty >= quantity;
         boolean enoughMoney = user.getSaldo() > totalPrice;
 
         if(isMultiply & aveliable & enoughMoney){
@@ -118,7 +118,7 @@ public class UserFacade {
         if (hasEnough & isMultiply){
             double cantorOldValue = cantor.getPortfolio().get(currency);
             cantor.getPortfolio().replace(currency, cantorOldValue + quantity);
-            double price = quantity * currency.getPurchasePrice();
+            double price = quantity * (currency.getPurchasePrice() / unit);
             double userOldValue = user.getWallet().get(currency);
             user.getWallet().replace(currency, userOldValue-quantity);
             user.setSaldo(user.getSaldo()+price);

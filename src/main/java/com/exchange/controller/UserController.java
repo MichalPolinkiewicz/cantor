@@ -35,24 +35,24 @@ public class UserController {
         userFacade.addUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/init", params = {"userId", "currencyId", "value"})
-    public void initWallet(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
-                           @RequestParam("value") double value) throws Exception{
-        userFacade.initWallet(userId, currencyId, value);
-    }
+//    @RequestMapping(method = RequestMethod.PATCH, value = "/init", params = {"userId", "currencyId", "value"})
+//    public void initWallet(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
+//                           @RequestParam("value") double value) throws Exception{
+//        userFacade.initWallet(userId, currencyId, value);
+//    }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/edit")
     public User editUser(@RequestBody User user) throws Exception{
         return userFacade.editUser(user);
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/buy", params = {"userId", "currencyId", "quantity"})
+    @RequestMapping(method = RequestMethod.POST, value = "/buy", params = {"userId", "currencyId", "quantity"})
     public void buy(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
                     @RequestParam("quantity") double quantity) throws Exception{
         userFacade.buy(userId, currencyId, quantity);
     }
 
-    @RequestMapping(method = RequestMethod.PATCH, value = "/sell", params = {"userId", "currencyId", "quantity"})
+    @RequestMapping(method = RequestMethod.POST, value = "/sell", params = {"userId", "currencyId", "quantity"})
     public void sell(@RequestParam("userId") Long userId, @RequestParam("currencyId") Long currencyId,
                      @RequestParam("quantity") double quantity) throws Exception{
         userFacade.sell(userId,currencyId,quantity);

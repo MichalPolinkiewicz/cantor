@@ -2,6 +2,7 @@ package com.exchange.controller;
 
 import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.domain.user.User;
+import com.exchange.exception.NotAveliableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,13 +34,19 @@ public class ViewController {
     @RequestMapping(method = RequestMethod.GET, value = "/main")
     public String getLogged(Map <String, Object> model) throws Exception{
         List<CurrencyDto> currencyDtos = cantorController.getActualCantorCurrencies();
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user;
+        try {
+            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (Exception e){
+            return "accessError";
+        }
 
         List<CurrencyDto> userCurrencies = userController.getWallet(user.getId());
 
         model.put("date", cantorController.getActualizationData());
         model.put("currencies", currencyDtos);
         model.put("userWallet", userCurrencies);
+        model.put("userId", user.getId());
         model.put ("saldo", userController.getSaldo(user.getId()));
         model.put("userName", user.getName() + " " + user.getSurname());
 
@@ -55,7 +62,7 @@ public class ViewController {
     public String addUser(@ModelAttribute @Valid User user) throws Exception{
             try {
                 userController.addUser(user);
-                return "registrationSucess";
+                return "registrationSuccess";
             } catch (Exception e){
                 return "error";
             }
@@ -66,15 +73,27 @@ public class ViewController {
         return "loginError";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/1")
-    public String get1 (){
-        return "1";
+    @RequestMapping(method = RequestMethod.POST, value = "/buy")
+    public String buy(Long userId, Long currencyId, double quantity) throws Exception{
+        try {
+            userController.buy(userId, currencyId, quantity);
+            return "transactionSuccess";
+        } catch (NotAveliableException e){
+            return "transactionFail";
+        }
+
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/2")
-    public String get2 (){
+    @RequestMapping(method = RequestMethod.POST, value = "/sell")
+    public String sell(Long userId, Long currencyId, double quantity) throws Exception{
+        try {
+            userController.sell(userId, currencyId, quantity);
+            return "transactionSuccess";
+        } catch (NotAveliableException e){
+            return "transactionFail";
+        }
 
-        return "1";
     }
+
 
 }
