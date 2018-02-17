@@ -3,7 +3,7 @@
       xmlns:valign="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"></meta>
-    <title>Login</title>
+    <title>Error</title>
 
 
     <style>
@@ -11,7 +11,7 @@
         .container
         {
             width: 1280px;
-            min-height: 200px;
+            min-height: 100px;
             margin-left: auto;
             margin-right:auto;
             background-color: whitesmoke;
@@ -31,7 +31,7 @@
             margin-right:290px;
         }
 
-        h2, h3
+        h2, h3, h1
         {
             text-align: center;
             background-color: wheat;
@@ -56,31 +56,12 @@
 
 <body>
 <div class = "container">
-    <h2>LOGIN PAGE</h2>
-
-    <div class="main">
-
-        <table align="center">
-            <form action="login" th:action="@{/login}" method="post">
-            <tr>
-                <td>LOGIN </td>
-                <td> <input type="text" name="username" style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 150px; border-style: solid; border-color: #000000; border-width: 2px" /></td>
-            </tr>
-                <tr>
-                    <td>PASSWORD </td>
-                    <td> <input type="password" name="password" style="background-color: #FFFFFF; font-size: 14pt; font-family: calibri; font-weight: bold; width: 150px; border-style: solid; border-color: #000000; border-width: 2px" /></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <button type="submit"> LOGIN</button>
-                    </td>
-                </tr>
-            </form>
-        </table>
-    </div>
-    <h3> <a href="createAccount.html" class="link"> Click here to create account </a> </h3>
+    <h2>Something went wrong</h2>
+    <h1>All fields must be completed. If are, and error is still present please try with another login</h1>
 
 
+
+    <h3> <a href="accountForm.html" class="link"> Click here to create account </a> </h3>
 
 </div>
 

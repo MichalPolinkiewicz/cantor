@@ -73,6 +73,10 @@ public class DbService {
         return userRepository.findUserBySurname(surname);
     }
 
+    public Optional<User> findUserByLogin(String login){
+        return userRepository.findUserByLogin(login);
+    }
+
     //UserRole
     public UserRole saveUserRole(UserRole userRole){
         return userRoleRepository.save(userRole);

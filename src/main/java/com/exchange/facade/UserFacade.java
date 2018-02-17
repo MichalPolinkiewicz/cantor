@@ -24,19 +24,20 @@ public class UserFacade {
     private DbService dbService;
 
     public void addUser(User user) throws Exception{
-        Optional<User> userSrn = dbService.findUserBySurname(user.getSurname());
-        Optional<User> userNm = dbService.getUserByName(user.getName());
-        if (userNm.isPresent() & userSrn.isPresent()){
+        Optional<User> userLogin = dbService.findUserByLogin(user.getLogin());
+        if (userLogin.isPresent() | user.getPassword().length()<1 | user.getLogin().length()<1 |
+                user.getName().length() <1 | user.getSurname().length()<1){
             throw new NotAveliableException();
+        } else {
+            user.setSaldo(1500.0);
+            Set<UserRole> roleList = new HashSet<>();
+            UserRole userRole = new UserRole();
+            userRole.setRole("USER");
+            roleList.add(userRole);
+            user.setRoles(roleList);
+            dbService.saveUser(user);
+            dbService.saveUserRole(userRole);
         }
-        user.setSaldo(1500.0);
-        Set<UserRole> roleList = new HashSet<>();
-        UserRole userRole = new UserRole();
-        userRole.setRole("USER");
-        roleList.add(userRole);
-        user.setRoles(roleList);
-        dbService.saveUser(user);
-        dbService.saveUserRole(userRole);
     }
 
     public List<User> getUsers(){

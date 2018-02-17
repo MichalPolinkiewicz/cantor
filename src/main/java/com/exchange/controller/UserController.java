@@ -9,6 +9,7 @@ import com.exchange.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VALUE;
@@ -19,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_FORM_URLENCODED_VAL
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -30,7 +31,7 @@ public class UserController {
     private UserMapper userMapper;
 
     @RequestMapping(method = RequestMethod.POST, value = "/add", consumes = {APPLICATION_FORM_URLENCODED_VALUE})
-    public void addUser(@ModelAttribute User user) throws Exception{
+    public void addUser(@ModelAttribute @Valid User user) throws Exception{
         userFacade.addUser(user);
     }
 

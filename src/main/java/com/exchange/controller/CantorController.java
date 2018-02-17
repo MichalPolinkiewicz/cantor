@@ -16,7 +16,7 @@ import java.util.List;
  */
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/v1/cantor")
+@RequestMapping("/cantor")
 public class CantorController {
 
    @Autowired
