@@ -35,8 +35,8 @@ public class CantorFacade {
                 dbService.saveCurrency(currency);
                 map.put(currency, 5000.0);
                 cantor.setPortfolio(map);
-                actualizeCantor();
                 dbService.saveCantor(cantor);
+                actualizeCantor();
             }
         } else {
             cantor = dbService.getFirst();
