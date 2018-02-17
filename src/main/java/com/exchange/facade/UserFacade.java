@@ -29,7 +29,7 @@ public class UserFacade {
                 user.getName().length() <1 | user.getSurname().length()<1){
             throw new NotAveliableException();
         } else {
-            user.setSaldo(1500.0);
+            user.setSaldo(2000.0);
             Set<UserRole> roleList = new HashSet<>();
             UserRole userRole = new UserRole();
             userRole.setRole("USER");
