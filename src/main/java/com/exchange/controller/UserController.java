@@ -1,5 +1,6 @@
 package com.exchange.controller;
 
+import com.exchange.domain.Transaction;
 import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.domain.dto.UserDto;
 import com.exchange.domain.user.User;
@@ -71,6 +72,11 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}/saldo")
     public double getSaldo(@PathVariable("id") Long id) throws Exception{
         return userMapper.mapToUserDto(userFacade.getUserById(id)).getSaldo();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}/transactions")
+    public List<Transaction> getTransactions(@PathVariable("id") Long id) throws Exception{
+        return userFacade.getUserById(id).getTransactions();
     }
 
 }

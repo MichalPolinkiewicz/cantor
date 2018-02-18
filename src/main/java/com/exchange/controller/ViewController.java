@@ -1,5 +1,6 @@
 package com.exchange.controller;
 
+import com.exchange.domain.Transaction;
 import com.exchange.domain.dto.CurrencyDto;
 import com.exchange.domain.user.User;
 import com.exchange.exception.NotAveliableException;
@@ -18,13 +19,18 @@ import java.util.Map;
  * Created by Lenovo on 07.02.2018.
  */
 @Controller
-@RequestMapping("/exchange")
+@RequestMapping("/")
 public class ViewController {
 
     @Autowired
     private CantorController cantorController;
     @Autowired
     private UserController userController;
+
+    public User getUser(){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/loginPage")
     public String getLogin(){
@@ -36,19 +42,22 @@ public class ViewController {
         List<CurrencyDto> currencyDtos = cantorController.getActualCantorCurrencies();
         User user;
         try {
-            user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            user = getUser();
         } catch (Exception e){
             return "accessError";
         }
 
         List<CurrencyDto> userCurrencies = userController.getWallet(user.getId());
+        List <Transaction> transactions = userController.getTransactions(user.getId());
+        double saldo = userController.getSaldo(user.getId());
 
         model.put("date", cantorController.getActualizationData());
         model.put("currencies", currencyDtos);
         model.put("userWallet", userCurrencies);
         model.put("userId", user.getId());
-        model.put ("saldo", userController.getSaldo(user.getId()));
+        model.put ("saldo", saldo);
         model.put("userName", user.getName() + " " + user.getSurname());
+
 
         return "main";
     }
@@ -95,5 +104,16 @@ public class ViewController {
 
     }
 
-
+    @RequestMapping(method = RequestMethod.GET, value = "/transactions")
+    public String getTransactions(Map <String, Object> model){
+        User user;
+        try {
+            user = getUser();
+            List<Transaction> transactions = userController.getTransactions(user.getId());
+            model.put("transactions", transactions);
+            return "transactions";
+        } catch (Exception e){
+            return "accessError";
+        }
+    }
 }

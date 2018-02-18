@@ -92,7 +92,7 @@ public class UserFacade {
 
             user.setSaldo(user.getSaldo() - totalPrice);
             Transaction transaction = new Transaction(user, currency,
-                    Date.from(Instant.now()),"buy", quantity,totalPrice, currency.getSellPrice());
+                    Date.from(Instant.now()),"buy", quantity,totalPrice, currency.getSellPrice(), user.getSaldo());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);
@@ -123,7 +123,7 @@ public class UserFacade {
             user.getWallet().replace(currency, userOldValue-quantity);
             user.setSaldo(user.getSaldo()+price);
             if (user.getWallet().get(currency)==0){user.getWallet().remove(currency);}
-            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"sell", quantity,price, currency.getPurchasePrice());
+            Transaction transaction = new Transaction(user, currency, Date.from(Instant.now()),"sell", quantity,price, currency.getPurchasePrice(), user.getSaldo());
             dbService.saveUser(user);
             dbService.saveCantor(cantor);
             dbService.saveTransaction(transaction);

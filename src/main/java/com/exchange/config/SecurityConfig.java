@@ -31,23 +31,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/exchange/**").permitAll()
-                .antMatchers("/exchange/loginpage").permitAll()
+                .antMatchers("/**").permitAll()
+                .antMatchers("/loginpage").permitAll()
                 .antMatchers("/user/add").permitAll()
                 .antMatchers("/cantor/**").permitAll()
-                .antMatchers("/exchange/main").authenticated()
+                .antMatchers("/main").authenticated()
                 .and()
                 .formLogin()
-                    .loginPage("/exchange/loginPage").permitAll()
-                    .loginProcessingUrl("/exchange/processlogin").permitAll()
-                    .failureUrl("/exchange/loginError")
+                    .loginPage("/loginPage").permitAll()
+                    .loginProcessingUrl("/processlogin").permitAll()
+                    .failureUrl("/loginError")
                 .usernameParameter("login")
                 .passwordParameter("password")
-                    .defaultSuccessUrl("/exchange/main")
+                    .defaultSuccessUrl("/main")
                 .and()
                 .logout()
                 .logoutUrl("/logoutuser").permitAll()
-                .logoutSuccessUrl("/exchange/loginPage").permitAll();
+                .logoutSuccessUrl("/loginPage").permitAll();
     }
 
 }

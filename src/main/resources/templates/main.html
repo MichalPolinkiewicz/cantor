@@ -47,10 +47,14 @@
             font-family: calibri;
         }
 
-        td
+       th
         {
             text-transform: uppercase;
         }
+       td
+       {
+           text-transform: capitalize;
+       }
 
         .saldo
         {
@@ -60,6 +64,12 @@
             padding:10px;
             font-family: calibri;
 
+        }
+
+        .link
+        {
+            color: black;
+            text-decoration:none;
         }
 
         button
@@ -86,7 +96,7 @@
             <form action="/logoutuser" th:action="@{/logoutuser}" th:method="post">
                 <button type="submit"> LOGOUT </button>
             </form>
-            <button>SHOW TRANSACTIONS</button>
+            <button> <a href="transactions" class="link"> SHOW TRANSACTIONS</a></button>
         </h4>
     </div>
 
@@ -94,19 +104,19 @@
         <h3>Cantor. Actualization date: <span th:text="${date}"></span> GMT  </h3>
         <table align= "center">
             <tr>
-                <td width="80"> name </td>
-                <td width="80"> code </td>
-                <td width="80"> unit </td>
-                <td width="80"> price </td>
-                <td width="80"> amount </td>
-                <td width="80"> amount to buy</td>
-                <td width="80"> action </td>
+                <th width="80"> name </th>
+                <th width="80"> code </th>
+                <th width="80"> unit </th>
+                <th width="80"> price </th>
+                <th width="80"> amount </th>
+                <th width="80"> amount to buy</th>
+                <th width="80"> action </th>
             </tr>
             <body>
             <tr>
             <tr th:each="crc : ${currencies}">
             <tr th:each="crc : ${crc}">
-                <form th:action="@{/exchange/buy}"  method="post">
+                <form th:action="@{/buy}"  method="post">
                     <input th:type="hidden" name="userId" th:value="${userId}"></input>
                     <input th:type="hidden" name="currencyId" th:value="${crc.id}"></input>
 
@@ -132,19 +142,19 @@
         <h3>User Wallet</h3>
         <table align="center">
             <tr>
-                <td width="80"> currency </td>
-                <td width="80"> code </td>
-                <td width="80"> unit </td>
-                <td width="80"> amount </td>
-                <td width="80"> price </td>
-                <td width="80"> amount to sell </td>
-                <td width="80"> action </td>
+                <th width="80"> currency </th>
+                <th width="80"> code </th>
+                <th width="80"> unit </th>
+                <th width="80"> amount </th>
+                <th width="80"> price </th>
+                <th width="80"> amount to sell </th>
+                <th width="80"> action </th>
             </tr>
             <body>
             <tr>
             <tr th:each="crc : ${userWallet}">
             <tr th:each="crc : ${crc}">
-                <form th:action="@{/exchange/sell}"  method="post">
+                <form th:action="@{/sell}"  method="post">
                     <input th:type="hidden" name="userId" th:value="${userId}"></input>
                     <input th:type="hidden" name="currencyId" th:value="${crc.id}"></input>
                     <td th:text="${crc.name}"></td>

@@ -28,11 +28,12 @@ public class Transaction {
     private double quantity;
     private double value;
     private double unitPrice;
+    private double saldo;
 
     public Transaction() {
     }
 
-    public Transaction(User user, Currency currency, Date date, String type, double quantity, double value, double unitPrice) {
+    public Transaction(User user, Currency currency, Date date, String type, double quantity, double value, double unitPrice, double saldo) {
         this.user = user;
         this.currency = currency;
         this.date = date;
@@ -40,6 +41,7 @@ public class Transaction {
         this.quantity = quantity;
         this.value = value;
         this.unitPrice = unitPrice;
+        this.saldo = saldo;
     }
 
     public Long getId() {
@@ -104,5 +106,13 @@ public class Transaction {
 
     public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 }
