@@ -27,12 +27,11 @@ public class ViewController {
     @Autowired
     private UserController userController;
 
-    public User getUser(){
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return user;
+    private User getUser(){
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/loginPage")
+    @RequestMapping(method = RequestMethod.GET, value = "/")
     public String getLogin(){
         return "loginPage";
     }

@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .antMatchers("/loginpage").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/user/add").permitAll()
                 .antMatchers("/cantor/**").permitAll()
                 .antMatchers("/main").authenticated()
@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutUrl("/logoutuser").permitAll()
-                .logoutSuccessUrl("/loginPage").permitAll();
+                .logoutSuccessUrl("/").permitAll();
     }
 
 }

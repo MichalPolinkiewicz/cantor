@@ -96,7 +96,9 @@
             <form action="/logoutuser" th:action="@{/logoutuser}" th:method="post">
                 <button type="submit"> LOGOUT </button>
             </form>
-            <button> <a href="transactions" class="link"> SHOW TRANSACTIONS</a></button>
+            <form action="/transactions" th:action="@{/transactions}" th:method="get">
+                <button type="submit"> SHOW TRANSACTIONS </button>
+            </form>
         </h4>
     </div>
 
